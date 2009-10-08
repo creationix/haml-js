@@ -10,14 +10,14 @@ Haml.to_html = function (json) {
   if (typeof json === 'string') {
     
     if (json.substr(0, 3) === '!!!') {
-      switch (json.substr(4)) {
-        case 'XML':
+      switch (json.substr(4).toLowerCase()) {
+        case 'xml':
           return "<?xml version='1.0' encoding='utf-8' ?>\n";
         case '':
           return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n';
         case '1.1':
           return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n';
-        case 'Strict':
+        case 'strict':
           return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n';
       }
     }
@@ -69,14 +69,10 @@ Haml.parse = function (text) {
       scope = this,
       haml, element, stack, indent, buffer, old_indent, mode, last_insert;
       
-  // The closest thing to instance_eval you can get in javascript
+  // Sortof an instance_eval for Javascript
   function instance_eval(input) {
     var block;
-    if (typeof input === 'string') {
-      block = function () { return eval("(" + input + ")"); };
-    } else {
-      block = input;
-    }
+    block = function () { with(scope) { return eval("(" + input + ")"); } };
     return block.call(scope);
   }
 
