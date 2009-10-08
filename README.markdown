@@ -80,7 +80,7 @@ Scope is the custom scope for the JavaScript in the template.  Haml uses the "wi
 
 Since reading files is asynchronous in NodeJS, a Callback is required to pass the generated html to when done.
 
-See test.js for an example usage of Haml.render
+See [test.js][] for an example usage of Haml.render
 
 ## Plugins
 
@@ -93,3 +93,4 @@ If you want to use this project and something is missing then send me a message.
 
 [jquery-haml]: http://github.com/creationix/jquery-haml
 [haml]: http://haml.hamptoncatlin.com/
+[test.js]: http://github.com/creationix/haml-js/blob/master/test.js
