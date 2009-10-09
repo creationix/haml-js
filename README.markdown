@@ -92,9 +92,10 @@ If you want to use this project and something is missing then send me a message.
 
 ## License
 
-Haml-js is licensed under the MIT [license][].
+Haml-js is [licensed][] under the [MIT license][].
 
-[license]: http://github.com/creationix/haml-js/blob/master/LICENSE
+[MIT license]: http://creativecommons.org/licenses/MIT/
+[licensed]: http://github.com/creationix/haml-js/blob/master/LICENSE
 [jquery-haml]: http://github.com/creationix/jquery-haml
 [haml]: http://haml.hamptoncatlin.com/
 [test.js]: http://github.com/creationix/haml-js/blob/master/test.js
