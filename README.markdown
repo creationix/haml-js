@@ -90,7 +90,11 @@ There are plugins in the parser for things like inline script tags, css blocks, 
 
 If you want to use this project and something is missing then send me a message.  I'm very busy and have several open source projects I manage.  I'll contribute to this project as I have time, but if there is more interest for some particular aspect, I'll work on it a lot faster.  Also you're welcome to fork this project and send me patches/pull-requests.
 
+## License
 
+Haml-js is licensed under the MIT [license][].
+
+[license]: http://github.com/creationix/haml-js/blob/master/LICENSE
 [jquery-haml]: http://github.com/creationix/jquery-haml
 [haml]: http://haml.hamptoncatlin.com/
 [test.js]: http://github.com/creationix/haml-js/blob/master/test.js
