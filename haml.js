@@ -391,11 +391,18 @@ Haml.parse = function (text) {
 if (exports) {
   exports.parse = Haml.parse;
   exports.to_html = Haml.to_html;
-  exports.render = function (scope, filename, callback) {
-    node.fs.cat(filename).addCallback(function (text) {
-      var json = Haml.parse.call(scope, text);
-      callback(Haml.to_html(json).replace("\n\n", "\n"));
-    });
+  exports.render = function (scope, template, callback) {
+    if (typeof callback ==="function") {
+      node.fs.cat(template).addCallback(function (text) {
+        var json = Haml.parse.call(scope, text);
+        callback(Haml.to_html(json).replace("\n\n", "\n"));
+      });
+      return undefined;
+    }
+    else {
+      var json = Haml.parse.call(scope, template);
+      return Haml.to_html(json);
+    }
   }
 }
 
