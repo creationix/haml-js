@@ -217,9 +217,9 @@ Haml.parse = function (text) {
     }
     mode = 'ELEMENT';
 
-    classes = selector.match(/\.[^\.#]+/g),
+    var classes = selector.match(/\.[^\.#]+/g),
     ids = selector.match(/#[^\.#]+/g),
-    tag = selector.match(/^%([^\.#]+)/g);
+    tag = selector.match(/^%([^\.#]+)/g),
     plugin = selector.match(/^:([^\.#]+)/g);
     tag = tag ? tag[0].substr(1) : (plugin ? null : 'div');
     plugin = plugin ? plugin[0].substr(1) : null;
