@@ -274,8 +274,8 @@ Haml.parse = function (text) {
     var contents, i;
     switch (element[0].plugin) {
     case 'if':
-      var condition = element[1].condition;
-      contents = element[2];
+      var condition = element[0].condition;
+      contents = element[1];
       for (i in element) {
         if (element.hasOwnProperty(i)) {
           delete element[i];
