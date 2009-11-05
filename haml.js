@@ -392,7 +392,7 @@ if (exports) {
   exports.parse = Haml.parse;
   exports.to_html = Haml.to_html;
   exports.render = function (scope, filename, callback) {
-    node.fs.cat(filename).addCallback(function (text) {
+    process.fs.cat(filename).addCallback(function (text) {
       var json = Haml.parse.call(scope, text);
       callback(Haml.to_html(json).replace("\n\n", "\n"));
     });
