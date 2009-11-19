@@ -78,13 +78,28 @@ Render is a shortcut for the most common use of haml-js from within a node serve
 
 Scope is the custom scope for the JavaScript in the template.  Haml uses the "with" trick to make prefixing all variable and function references with "this".  So if I had a scope of {first: "Tim", last: "Caswell"}, then in the template the variables "first" and "last" would be available for use as local variables.
 
-Since reading files is asynchronous in NodeJS, a Callback is required to pass the generated html to when done.
+Since reading files is asynchronous in NodeJS, an optional callback is accepted to pass the generated html to when done. If you don't provide a callback the render function will just return the rendered HTML.
 
 See [test.js][] for an example usage of Haml.render
 
 ## Plugins
 
 There are plugins in the parser for things like inline script tags, css blocks, and experimental support for if statements and for loops.  There are to be documented soon...
+
+### If statements
+
+`If` statements evaluate a condition for truthiness (as opposed to a strict comparison to `true`) and includes the content inside the block if it's truthy.
+
+    :if{ condition : todolist.length > 20 }
+      %p Oh my, you are a busy fellow!
+
+### Foreach loops
+
+`Foreach` loops allow you to loop over a collection including a block of content once for each item. You need to specify the array you are looping over (`array`) and the name of the variable the item should be put into (`value`).
+
+    %ul.todolist
+      :foreach{ array : todolist, value : "item" }
+        %li= item.description
 
 ## Get Involved
 
