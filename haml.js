@@ -1,14 +1,14 @@
 /* ex:ts=2:et: */
-/*jslint bitwise: true, browser: true, eqeqeq: true, evil: true, immed: true, newcap: true, 
+/*jslint bitwise: true, browser: true, eqeqeq: true, evil: true, immed: true, newcap: true,
     nomen: true, plusplus: true, regexp: true, undef: true, white: true, indent: 2 */
 /*globals */
 
 function Haml() {}
 
 Haml.to_html = function (json) {
-  
+
   if (typeof json === 'string') {
-    
+
     if (json.substr(0, 3) === '!!!') {
       switch (json.substr(4).toLowerCase()) {
         case 'xml':
@@ -62,13 +62,13 @@ Haml.to_html = function (json) {
 }
 
 Haml.parse = function (text) {
-  
+
   var empty_regex = new RegExp("^[ \t]*$"),
       indent_regex = new RegExp("^ *"),
       element_regex = new RegExp("^(?::[a-z]+|(?:[%][a-z][a-z0-9]*)?(?:[#.][a-z0-9_-]+)*)", "i"),
       scope = this,
       haml, element, stack, indent, buffer, old_indent, mode, last_insert;
-      
+
   // Sortof an instance_eval for Javascript
   function instance_eval(input) {
     var block;
@@ -105,7 +105,7 @@ Haml.parse = function (text) {
     element.push(new_element);
     element = new_element;
   }
-  
+
   function parse_pop() {
     var last = stack.pop();
 
@@ -120,7 +120,7 @@ Haml.parse = function (text) {
     element = last.element;
     mode = last.mode;
   }
-  
+
   function get_indent(line) {
     if (line === undefined) {
       return 0;
@@ -128,7 +128,7 @@ Haml.parse = function (text) {
     var i = line.match(indent_regex);
     return i[0].length / 2;
   }
-  
+
   function parse_attribs(line) {
     // Parse the attribute block using a state machine
     if (!(line.length > 0 && line.charAt(0) === '{')) {
@@ -175,16 +175,16 @@ Haml.parse = function (text) {
     }.call(this));
     return line.substr(i);
   }
-  
+
   function parse_content(line) {
     // Strip off leading whitespace
     line = line.replace(indent_regex, '');
-    
+
     // Ignore blank lines
     if (line.length === 0) {
       return;
     }
-    
+
     if (mode === 'ELEMENT') {
       parse_pop();
     }
@@ -217,15 +217,15 @@ Haml.parse = function (text) {
     }
     mode = 'ELEMENT';
 
-    classes = selector.match(/\.[^\.#]+/g),
+    var classes = selector.match(/\.[^\.#]+/g),
     ids = selector.match(/#[^\.#]+/g),
-    tag = selector.match(/^%([^\.#]+)/g);
+    tag = selector.match(/^%([^\.#]+)/g),
     plugin = selector.match(/^:([^\.#]+)/g);
     tag = tag ? tag[0].substr(1) : (plugin ? null : 'div');
     plugin = plugin ? plugin[0].substr(1) : null;
-    
+
     line = parse_attribs.call(this, line.substr(selector.length));
-    
+
     var attrs;
     if (typeof element[element.length - 1] === "object") {
       attrs = element[element.length - 1];
@@ -269,13 +269,13 @@ Haml.parse = function (text) {
       }
     }
   }
-  
+
   function process_plugins() {
     var contents, i;
-    switch (element[0]) {
-    case ':if':
-      var condition = element[1].condition;
-      contents = element[2];
+    switch (element[0].plugin) {
+    case 'if':
+      var condition = element[0].condition;
+      contents = element[1];
       for (i in element) {
         if (element.hasOwnProperty(i)) {
           delete element[i];
@@ -291,12 +291,12 @@ Haml.parse = function (text) {
         element.length = new_element.length;
       }
       break;
-    case ':foreach':
+    case 'foreach':
       var array, key, value, key_name, value_name;
-      array = element[1].array;
-      key_name = element[1].key;
-      value_name = element[1].value;
-      contents = element[2];
+      array = element[0].array;
+      key_name = element[0].key;
+      value_name = element[0].value;
+      contents = element[1];
       for (i in element) {
         if (element.hasOwnProperty(i)) {
           delete element[i];
@@ -314,7 +314,7 @@ Haml.parse = function (text) {
       break;
     }
   }
-    
+
   haml = [];
   element = haml;
   stack = [];
@@ -323,14 +323,14 @@ Haml.parse = function (text) {
   parse_push(); // Prime the pump so we can have multiple root elements
   indent = 0;
   old_indent = indent;
-  
+
   var lines = text.split("\n"),
       line, line_index, line_count;
-      
+
   line_count = lines.length;
   for (line_index = 0; line_index <= line_count; line_index += 1) {
     line = lines[line_index];
-    
+
     switch (mode) {
     case 'ELEMENT':
     case 'NORMAL':
@@ -346,13 +346,13 @@ Haml.parse = function (text) {
         parse_pop();
         old_indent -= 1;
       }
-      
+
       if (line === undefined) {
         continue;
       }
-      
+
       line = line.substr(indent * 2);
-      
+
       // Pass doctype commands through as is
       if (line.substr(0, 3) === '!!!') {
         element.push(line);
@@ -380,7 +380,7 @@ Haml.parse = function (text) {
       break;
     }
   }
-  
+
   if (haml.length === 1 && typeof haml[0] !== 'string') {
     haml = haml[0];
   }
@@ -391,11 +391,18 @@ Haml.parse = function (text) {
 if (exports) {
   exports.parse = Haml.parse;
   exports.to_html = Haml.to_html;
-  exports.render = function (scope, filename, callback) {
-    process.fs.cat(filename).addCallback(function (text) {
-      var json = Haml.parse.call(scope, text);
-      callback(Haml.to_html(json).replace("\n\n", "\n"));
-    });
+  exports.render = function (scope, template, callback) {
+    if (typeof callback ==="function") {
+      process.fs.cat(template).addCallback(function (text) {
+        var json = Haml.parse.call(scope, text);
+        callback(Haml.to_html(json).replace("\n\n", "\n"));
+      });
+      return undefined;
+    }
+    else {
+      var json = Haml.parse.call(scope, template);
+      return Haml.to_html(json);
+    }
   }
 }
 
