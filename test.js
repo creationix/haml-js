@@ -3,6 +3,8 @@
 
 // Load the haml-js library from the current directory
 var Haml = require("./haml");
+var file = require('file');
+var sys = require('sys');
 
 // Set up a scope for our view to render in
 var scope = {
@@ -16,8 +18,11 @@ var scope = {
   }
 };
 
-
 // Load, parse, and render the html.  The result it passed to the callback puts
 // which prints it to the terminal.
-Haml.render(scope, "test.haml", require('sys').puts);
+file.read('test.haml').addCallback(function (source) {
+  sys.puts(Haml.render(source, {
+    locals: scope
+  }));
+});
 

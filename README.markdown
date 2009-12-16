@@ -72,13 +72,16 @@ The input from the previous example outputs this:
       </ul>
     </div>
 
-### render(scope, filename, callback)
+### render(text, options) -> html text
 
-Render is a shortcut for the most common use of haml-js from within a node server.  It takes a scope, filename, and callback and calls the callback with the generated html when ready.
+This is a convenience function that parses and converts to html in one shot.
 
-Scope is the custom scope for the JavaScript in the template.  Haml uses the "with" trick to make prefixing all variable and function references with "this".  So if I had a scope of {first: "Tim", last: "Caswell"}, then in the template the variables "first" and "last" would be available for use as local variables.
+The `text` parameter is the haml source already read from a file.
 
-Since reading files is asynchronous in NodeJS, an optional callback is accepted to pass the generated html to when done. If you don't provide a callback the render function will just return the rendered HTML.
+The two recognized `options` are:
+
+ - **context**: This is the `this` context within the haml template.
+ - **locals**: This is an object that's used in the `with` scope.  Basically it creates local variables and function accessible to the haml template.
 
 See [test.js][] for an example usage of Haml.render
 

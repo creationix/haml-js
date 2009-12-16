@@ -3,7 +3,12 @@
     nomen: true, plusplus: true, regexp: true, undef: true, white: true, indent: 2 */
 /*globals */
 
-function Haml() {}
+var Haml = {};
+
+// Bind to the exports object if it exists. (CommonJS and NodeJS)
+if (exports) {
+  Haml = exports;
+}
 
 Haml.to_html = function (json) {
 
@@ -61,8 +66,8 @@ Haml.to_html = function (json) {
   return JSON.stringify(json);
 }
 
-
 Haml.parse = function (text, locals) {
+
   var empty_regex = new RegExp("^[ \t]*$"),
       indent_regex = new RegExp("^ *"),
       element_regex = new RegExp("^(?::[a-z]+|(?:[%][a-z][a-z0-9]*)?(?:[#.][a-z0-9_-]+)*)", "i"),
@@ -387,23 +392,8 @@ Haml.parse = function (text, locals) {
   return haml;
 };
 
-// Exports for node
-if (exports) {
-  var posix = require("posix");
-  exports.parse = Haml.parse;
-  exports.to_html = Haml.to_html;
-  exports.render = function (scope, template, callback) {
-    if (typeof callback ==="function") {
-      posix.cat(template).addCallback(function (text) {
-        var json = Haml.parse.call(scope, text);
-        callback(Haml.to_html(json).replace("\n\n", "\n"));
-      });
-      return undefined;
-    }
-    else {
-      var json = Haml.parse.call(scope, template);
-      return Haml.to_html(json);
-    }
-  }
+Haml.render = function(text, options) {
+  options = options || {};
+  var json = Haml.parse.call(options.context || GLOBAL, text, options.locals);
+  return Haml.to_html(json).replace('\n\n', '\n');
 }
-
