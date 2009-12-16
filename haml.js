@@ -389,11 +389,12 @@ Haml.parse = function (text) {
 
 // Exports for node
 if (exports) {
+  var posix = require("posix");
   exports.parse = Haml.parse;
   exports.to_html = Haml.to_html;
   exports.render = function (scope, template, callback) {
     if (typeof callback ==="function") {
-      process.fs.cat(template).addCallback(function (text) {
+      posix.cat(template).addCallback(function (text) {
         var json = Haml.parse.call(scope, text);
         callback(Haml.to_html(json).replace("\n\n", "\n"));
       });
