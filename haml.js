@@ -61,8 +61,8 @@ Haml.to_html = function (json) {
   return JSON.stringify(json);
 }
 
-Haml.parse = function (text) {
 
+Haml.parse = function (text, locals) {
   var empty_regex = new RegExp("^[ \t]*$"),
       indent_regex = new RegExp("^ *"),
       element_regex = new RegExp("^(?::[a-z]+|(?:[%][a-z][a-z0-9]*)?(?:[#.][a-z0-9_-]+)*)", "i"),
@@ -72,7 +72,7 @@ Haml.parse = function (text) {
   // Sortof an instance_eval for Javascript
   function instance_eval(input) {
     var block;
-    block = function () { with(scope) { return eval("(" + input + ")"); } };
+    block = function () { with(scope, locals || {}) { return eval("(" + input + ")"); } };
     return block.call(scope);
   }
 
