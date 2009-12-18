@@ -395,5 +395,5 @@ Haml.parse = function (text, locals) {
 Haml.render = function(text, options) {
   options = options || {};
   var json = Haml.parse.call(options.context || GLOBAL, text, options.locals);
-  return Haml.to_html(json).replace(/\n\n/g, '\n');
+  return Haml.to_html(json).replace(/\n\n+/g, '\n');
 }
