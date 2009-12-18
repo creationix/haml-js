@@ -40,10 +40,10 @@ Haml.to_html = function (json) {
           for (var key in element) {
             if (element.hasOwnProperty(key) && key !== 'tag') {
               html += " " + key + "=\"" + element[key].
-                replace("&", "&amp;").
-                replace("<", "&lt;").
-                replace(">", "&gt;").
-                replace("\"", "&quot;") + "\"";
+                replace(/&/g, "&amp;").
+                replace(/</g, "&lt;").
+                replace(/>/g, "&gt;").
+                replace(/\"/g, "&quot;") + "\"";
             }
           }
           if (json.length === 0 && (tag === "link" || tag === 'br' || tag === 'input')) {
@@ -89,7 +89,7 @@ Haml.parse = function (text, locals) {
     if (matches) {
       matches.forEach(function (match) {
         var pair = match.match(/#{([^}]*)}/);
-        string = string.replace(pair[0], instance_eval(pair[1]));
+        string = string.replace(new RegExp(pair[0], "g"), instance_eval(pair[1]));
       })
     }
     return string;
@@ -395,5 +395,5 @@ Haml.parse = function (text, locals) {
 Haml.render = function(text, options) {
   options = options || {};
   var json = Haml.parse.call(options.context || GLOBAL, text, options.locals);
-  return Haml.to_html(json).replace('\n\n', '\n');
+  return Haml.to_html(json).replace(/\n\n/g, '\n');
 }
