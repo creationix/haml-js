@@ -311,7 +311,9 @@ Haml.parse = function (text, locals) {
       for (key in array) {
         if (array.hasOwnProperty(key)) {
           value = array[key];
-          this[key_name] = key;
+          if (key_name !== undefined) {
+            this[key_name] = key;
+          }
           this[value_name] = value;
           element.push(Haml.parse.call(this, contents));
         }
