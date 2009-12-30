@@ -10,6 +10,8 @@ if (exports) {
   Haml = exports;
 }
 
+var self_close_tags = ["area", "base", "basefont", "br", "hr", "input", "img", "link", "meta"];
+
 Haml.to_html = function (json) {
 
   if (typeof json === 'string') {
@@ -46,7 +48,8 @@ Haml.to_html = function (json) {
                 replace(/\"/g, "&quot;") + "\"";
             }
           }
-          if (json.length === 0 && (tag === "link" || tag === 'br' || tag === 'input')) {
+
+          if (json.length === 0 && self_close_tags.indexOf(tag) >= 0) {
             return "\n<" + html + " />\n";
           }
           return "\n<" + html + ">" + Haml.to_html(json) + "</" + tag + ">\n";
