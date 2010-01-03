@@ -18,6 +18,10 @@ posix.readdir('.').addCallback(function (files) {
       file.read(haml_file).addCallback(function (haml) {
         file.read(base + ".html").addCallback(function (expected) {
           var actual = Haml.render(haml, scope);
+          if (actual !== expected) {
+            puts("Actual:\n" + actual);
+            puts("Expected:\n" + expected);
+          }
           assert.equal(actual, expected);
         });
       });

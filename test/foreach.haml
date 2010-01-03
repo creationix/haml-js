@@ -1,0 +1,9 @@
+= myarray
+= mystring
+:foreach{array: myarray, value: 'item'}
+  = item
+  = mystring
+%ul#results
+  :foreach{array: data, value:'item'}
+    :foreach{array : item, key: 'key', value : 'i'}
+      = key + ':' + i
