@@ -117,3 +117,17 @@ Haml-js is [licensed][] under the [MIT license][].
 [jquery-haml]: http://github.com/creationix/jquery-haml
 [haml]: http://haml.hamptoncatlin.com/
 [test.js]: http://github.com/creationix/haml-js/blob/master/test.js
+
+## TODO
+
+haml-js doesn't have nearly all the features of the original ruby version.  Here is a list of features not implemented that I may do someday if someone desires them.
+
+ - HTML comments
+   - IE conditional comments
+ - Haml comments
+ - Arbitrary code "-" prefix
+ - Whitespace Preservation: ~
+ - Ruby Interpolation: #{}
+
+ 
+ 
