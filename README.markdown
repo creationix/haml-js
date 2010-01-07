@@ -116,4 +116,4 @@ Haml-js is [licensed][] under the [MIT license][].
 [licensed]: http://github.com/creationix/haml-js/blob/master/LICENSE
 [jquery-haml]: http://github.com/creationix/jquery-haml
 [haml]: http://haml.hamptoncatlin.com/
-[test.js]: http://github.com/creationix/haml-js/blob/master/test.js
+[test.js]: http://github.com/creationix/haml-js/blob/master/test/test.js
