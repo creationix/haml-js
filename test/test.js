@@ -17,12 +17,16 @@ posix.readdir('.').addCallback(function (files) {
     function load_haml(scope) {
       file.read(haml_file).addCallback(function (haml) {
         file.read(base + ".html").addCallback(function (expected) {
-          var actual = Haml.render(haml, scope);
-          if (actual !== expected) {
+          try {
+            var actual = Haml.render(haml, scope);
+            assert.equal(actual, expected);
+          } catch (e) {
+            var message = e.name;
+            if (e.message) message += ": " + e.message;
+            puts(message);
             puts("Actual:\n" + actual);
             puts("Expected:\n" + expected);
           }
-          assert.equal(actual, expected);
         });
       });
     }
