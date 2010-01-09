@@ -1,5 +1,9 @@
 # HAML-JS Changelog
 
+- **0.1.1** - *2010-01-09* - Add :css and :script plugins
+
+  Added two quick plugins that make working with javascript and css much easier.
+  
  - **0.1.0** - *2010-01-09* - Complete Rewrite
 
    Rewrote the compiler to be recursive and compile to JavaScript code instead of JSON data structures.  This fixes all the outstanding bugs and simplifies the code.  Pending is restoring the `:script` and `:css` plugins.
