@@ -127,6 +127,42 @@ You can loop over the keys and values of objects too (Note the inner `:each` loo
             %dt&= name
             %dd&= value
 
+### `:css` and `:script` helpers.
+
+It's easy to embed javascript and css blocks in an haml document.
+
+    %head
+      :script
+        function greet(message) {
+          alert("Message from MCP: " + message);
+        }
+      %title Script and Css test
+      :css
+        body {
+          color: pink;
+        }
+    %body{ onload: "greet(\"I'm Pink\")" } COLOR ME PINK
+
+This compiles to the following HTML:
+
+    <head>
+    <script type="text/javascript">
+    //<![CDATA[
+      function greet(message) {
+        alert("Message from MCP: " + message);
+      }
+    //]]>
+    </script>
+    <title>Script and Css test
+    </title>
+    <style type="text/css">
+      body {
+        color: pink;
+      }
+    </style>
+    </head><body onload="greet(&quot;I'm Pink&quot;)"> COLOR ME PINK
+    </body>
+
 ## Get Involved
 
 If you want to use this project and something is missing then send me a message.  I'm very busy and have several open source projects I manage.  I'll contribute to this project as I have time, but if there is more interest for some particular aspect, I'll work on it a lot faster.  Also you're welcome to fork this project and send me patches/pull-requests.
