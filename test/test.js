@@ -18,6 +18,7 @@ posix.readdir('.').addCallback(function (files) {
       file.read(haml_file).addCallback(function (haml) {
         file.read(base + ".html").addCallback(function (expected) {
           try {
+            scope.optimize = true;
             var actual = Haml.render(haml, scope);
             assert.equal(actual, expected);
           } catch (e) {
