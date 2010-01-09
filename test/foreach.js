@@ -1,7 +1,10 @@
 {
   locals: {
-    myarray : [1,2,3],
-    mystring : "hello there",
-    data: [{name: "object1", value:"value1"}, {name: "object2", value:"value2"}]
+    colors: ["#f80", "#08f", "#4f4"],
+    name: "My Rainbow",
+    data: [
+      {name: "Tim Caswell", age: 27},
+      {name: "John Smith", age: 107},
+    ]
   }
 }
