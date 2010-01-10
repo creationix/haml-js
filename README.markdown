@@ -127,12 +127,12 @@ You can loop over the keys and values of objects too (Note the inner `:each` loo
             %dt&= name
             %dd&= value
 
-### `:css` and `:script` helpers.
+### `:css` and `:javascript` helpers.
 
 It's easy to embed javascript and css blocks in an haml document.
 
     %head
-      :script
+      :javascript
         function greet(message) {
           alert("Message from MCP: " + message);
         }
