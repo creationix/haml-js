@@ -18,15 +18,18 @@ posix.readdir('.').addCallback(function (files) {
       file.read(haml_file).addCallback(function (haml) {
         file.read(base + ".html").addCallback(function (expected) {
           try {
-            scope.optimize = true;
-            var actual = Haml.render(haml, scope);
+            var js = Haml.compile(haml);
+            var js_opt = Haml.optimize(js);
+            var actual = Haml.execute(js_opt, scope.context, scope.locals);
             assert.equal(actual, expected);
           } catch (e) {
             var message = e.name;
             if (e.message) message += ": " + e.message;
             puts(message);
-            puts("Actual:\n" + actual);
-            puts("Expected:\n" + expected);
+            puts("\nJS:\n\n" + js);
+            puts("\nOptimized JS:\n\n" + js_opt);
+            puts("\nActual:\n\n" + actual);
+            puts("\nExpected:\n\n" + expected);
           }
         });
       });
