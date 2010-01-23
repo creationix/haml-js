@@ -22,6 +22,7 @@ posix.readdir('.').addCallback(function (files) {
             var js_opt = Haml.optimize(js);
             var actual = Haml.execute(js_opt, scope.context, scope.locals);
             assert.equal(actual, expected);
+            puts(haml_file + " Passed")
           } catch (e) {
             var message = e.name;
             if (e.message) message += ": " + e.message;
