@@ -1,0 +1,7 @@
+{
+    "name": "haml-js",
+    "description": "Haml ported to server-side Javascript. This is a traditional server-side templating language.",
+    "keywords": ["haml", "template"],
+    "author": "Tim Caswell",
+    "version": "0.0.1"
+}
