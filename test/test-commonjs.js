@@ -15,7 +15,7 @@ FILE.glob("test/*.haml").forEach(function(hamlFile) {
         var js = Haml.compile(haml);
         var js_opt = Haml.optimize(js);
         var actual = Haml.execute(js_opt, scope.context, scope.locals);
-        ASSERT.equal(actual, expected);
+        ASSERT.equal(actual.trim(), expected.trim());
     }
 });
 
