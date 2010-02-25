@@ -1,11 +1,10 @@
-var file = require('file');
-var posix = require('posix');
+var fs = require('fs');
 var assert = require('assert');
 process.mixin(require('sys'));
 
 var Haml = require("../lib/haml");
 
-posix.readdir('.').addCallback(function (files) {
+fs.readdir('.', function (err, files) {
   files.forEach(function (haml_file) {
     var m = haml_file.match(/^(.*)\.haml/),
         base;
@@ -15,8 +14,8 @@ posix.readdir('.').addCallback(function (files) {
     base = m[1];
 
     function load_haml(scope) {
-      file.read(haml_file).addCallback(function (haml) {
-        file.read(base + ".html").addCallback(function (expected) {
+      fs.readFile(haml_file, function (err, haml) {
+        fs.readFile(base + ".html", function (err, expected) {
           try {
             var js = Haml.compile(haml);
             var js_opt = Haml.optimize(js);
@@ -38,7 +37,7 @@ posix.readdir('.').addCallback(function (files) {
 
     // Load scope
     if (files.indexOf(base + ".js") >= 0) {
-      file.read(base + ".js").addCallback(function (js) {
+      fs.readFile(base + ".js", function (err, js) {
         load_haml(eval("(" + js + ")"));
       });
     } else {
