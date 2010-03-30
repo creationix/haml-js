@@ -1,11 +1,13 @@
 var fs = require('fs');
 var assert = require('assert');
-process.mixin(require('sys'));
+require('proto');
+GLOBAL.mixin(require('sys'));
 
 var Haml = require("../lib/haml");
 
 fs.readdir('.', function (err, files) {
   files.forEach(function (haml_file) {
+    if (haml_file !== 'standard.haml') return;
     var m = haml_file.match(/^(.*)\.haml/),
         base;
     if (!m) {
@@ -18,8 +20,9 @@ fs.readdir('.', function (err, files) {
         fs.readFile(base + ".html", function (err, expected) {
           try {
             var js = Haml.compile(haml);
-            var js_opt = Haml.optimize(js);
-            var actual = Haml.execute(js_opt, scope.context, scope.locals);
+            var fn = new Function('locals', "with (locals||{}) { return " + js + "; }");
+            puts(fn+"");
+            var actual = fn.call(scope.context, scope.locals);
             assert.equal(actual, expected);
             puts(haml_file + " Passed")
           } catch (e) {
@@ -27,7 +30,6 @@ fs.readdir('.', function (err, files) {
             if (e.message) message += ": " + e.message;
             puts(message);
             puts("\nJS:\n\n" + js);
-            puts("\nOptimized JS:\n\n" + js_opt);
             puts("\nActual:\n\n" + actual);
             puts("\nExpected:\n\n" + expected);
           }
