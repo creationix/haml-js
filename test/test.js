@@ -20,7 +20,7 @@ fs.readdir('.', function (err, files) {
         fs.readFile(base + ".html", function (err, expected) {
           try {
             var js = Haml.compile(haml);
-            var fn = new Function('locals', "with (locals||{}) { return " + js + "; }");
+            var fn = new Function('locals', js);
             puts(fn+"");
             var actual = fn.call(scope.context, scope.locals);
             assert.equal(actual, expected);
@@ -28,7 +28,7 @@ fs.readdir('.', function (err, files) {
           } catch (e) {
             var message = e.name;
             if (e.message) message += ": " + e.message;
-            puts(message);
+            puts(e.stack || message);
             puts("\nJS:\n\n" + js);
             puts("\nActual:\n\n" + actual);
             puts("\nExpected:\n\n" + expected);
