@@ -37,7 +37,22 @@ Note that this works almost the same as ruby's [haml][], but doesn't pretty prin
 
 ## API
 
-There are four exported functions in the haml.js library.  They are:
+### Haml(haml) -> template(locals) -> html
+
+This is the new (as of 0.2.0) way to generate haml templates.  A haml template is a live function that takes in "this" context and a "locals" variable.  This compile step takes a few milliseconds to complete so it should be done at startup and the resulting function should be cached.  Then to use the template function you simply call it with the desired local variables and it will output html at blazing speeds (we're talking millions per second on my 13" MBP)
+
+Compile and store a template:
+
+    var main = Haml(main_haml);
+
+Then use it whenever you need a new version:
+
+    main({name: "Tim", age: 28});
+
+That's it. Haml templating made easy!
+
+If you want to store the generated javascript to a file to skip the compile step later on you can either decompile the template function or use the `compile` and `optimize` advanced functions directly.
+
 
 ### Haml.compile(text) -> JavaScript compiled template
 
@@ -96,6 +111,10 @@ The three recognized `options` are:
  - **optimize**: This is a flag to tell the compiler to use the extra optimizations.
  
 See [test.js][] for an example usage of Haml.render
+
+## Code interpolation
+
+New in version 0.2.0 there is string interpolation throughout.  This means that the body of regular text areas can have embedded code.  This is true for attributes and the contents of plugins like javascript and markdown also.  If you notice an area that doesn't support interpolation and it should then send me a note and I'll add it.
 
 ## Plugins
 
@@ -167,6 +186,10 @@ This compiles to the following HTML:
 
 If you want to use this project and something is missing then send me a message.  I'm very busy and have several open source projects I manage.  I'll contribute to this project as I have time, but if there is more interest for some particular aspect, I'll work on it a lot faster.  Also you're welcome to fork this project and send me patches/pull-requests.
 
+## About Performance
+
+The haml compiler isn't built for speed, it's built for maintainability.  The actual generated templates, however are blazing fast.  I benchmarked them with over 65 million renders per second on a small (20 line) template with some dynamic data on my laptop.  Compare this to the 629 compiles per second I got out of the compiler.  The idea is that you pre-compile your templates and reuse them on every request.  While 629 per second is nothing compared to 65 million, that still means that your server with over 600 different views can boot up in about a second.  I think that's fine for something that only happens every few weeks.
+
 ## License
 
 Haml-js is [licensed][] under the [MIT license][].
@@ -177,16 +200,6 @@ Haml-js is [licensed][] under the [MIT license][].
 [haml]: http://haml-lang.com/
 [test.js]: http://github.com/creationix/haml-js/blob/master/test/test.js
 
-## TODO
-
-haml-js doesn't have nearly all the features of the original ruby version.  Here is a list of features not implemented that I may do someday if someone desires them.
-
- - HTML comments
-   - IE conditional comments
- - Haml comments
- - Arbitrary code "-" prefix
- - Whitespace Preservation: ~
- - Ruby Interpolation: #{}
 
  
  
