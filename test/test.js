@@ -19,8 +19,9 @@ fs.readdir('.', function (err, files) {
           try {
             var js = Haml.compile(haml);
             var js_opt = Haml.optimize(js);
-            var actual = Haml.execute(js_opt, scope.context, scope.locals);
+            var actual = Haml(haml).call(scope.context, scope.locals);
             assert.equal(actual, expected);
+            
             sys.puts(haml_file + " Passed")
           } catch (e) {
             var message = e.name;
