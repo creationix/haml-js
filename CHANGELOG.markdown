@@ -1,6 +1,6 @@
 # HAML-JS Changelog
 
-- **0.2.0** - *2010-03-31* - Function based API, Safe hitespace, Code interpolation.
+- **0.2.0** - *2010-03-31* - Function based API, Safe whitespace, Code interpolation.
 
   At the request of some users, I've removed the new insertion into the generated html.  This means that most html will be on one long line, but as an added advantage you won't have that extra whitespace next to your anchor labels messing up your visual display.
   
