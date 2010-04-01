@@ -24,12 +24,14 @@ fs.readdir('.', function (err, files) {
             sys.puts(haml_file + " Passed")
           } catch (e) {
             var message = e.name;
-            if (e.message) message += ": " + e.message;
+            if (e.message) { message += ": " + e.message; }
+            sys.error(haml_file + " FAILED")
             sys.error(message);
             sys.error("\nJS:\n\n" + js);
             sys.error("\nOptimized JS:\n\n" + js_opt);
             sys.error("\nActual:\n\n" + actual);
             sys.error("\nExpected:\n\n" + expected);
+            process.exit();
           }
         });
       });
