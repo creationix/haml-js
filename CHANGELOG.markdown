@@ -1,5 +1,9 @@
 # HAML-JS Changelog
 
+- **v0.2.2** - *2010-04-05* - Bug fixes
+
+  Fixed two issues where the parser incorrectly parsed blank lines and extra spaces in attribute blocks.
+
 - **v0.2.1** - *2010-04-01* - Minor speed tweak
 
   `Haml()` now caches the eval step so that there is no eval in executing a compiled template.  This should make things a bit faster.
