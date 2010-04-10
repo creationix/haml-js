@@ -1,5 +1,9 @@
 # HAML-JS Changelog
 
+- **v0.2.3** - *2010-04-10* - Bug fixes
+
+  Fixed an issue where "content" html attributes got munched. (This broke meta tags)
+
 - **v0.2.2** - *2010-04-05* - Bug fixes
 
   Fixed two issues where the parser incorrectly parsed blank lines and extra spaces in attribute blocks.
