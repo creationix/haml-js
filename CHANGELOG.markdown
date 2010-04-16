@@ -1,5 +1,9 @@
 # HAML-JS Changelog
 
+- **v0.2.4** - *2010-04-16* - Bug fixes, XML support
+
+  Allow for commas in calls to helpers in attributes.  Also make haml more XML friendly.
+
 - **v0.2.3** - *2010-04-10* - Bug fixes
 
   Fixed an issue where "content" html attributes got munched. (This broke meta tags)
