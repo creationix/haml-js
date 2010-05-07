@@ -1,5 +1,9 @@
 # HAML-JS Changelog
 
+- **v0.2.5** - *2010-05-06* - NPM support
+
+  Fixed to work with Node Package Manager
+
 - **v0.2.4** - *2010-04-16* - Bug fixes, XML support
 
   Allow for commas in calls to helpers in attributes.  Also make haml more XML friendly.
