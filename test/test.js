@@ -14,8 +14,8 @@ fs.readdir('.', function (err, files) {
     base = m[1];
 
     function load_haml(scope) {
-      fs.readFile(haml_file, function (err, haml) {
-        fs.readFile(base + ".html", function (err, expected) {
+      fs.readFile(haml_file, "utf8", function (err, haml) {
+        fs.readFile(base + ".html", "utf8", function (err, expected) {
           try {
             var js = Haml.compile(haml);
             var js_opt = Haml.optimize(js);
@@ -40,7 +40,7 @@ fs.readdir('.', function (err, files) {
 
     // Load scope
     if (files.indexOf(base + ".js") >= 0) {
-      fs.readFile(base + ".js", function (err, js) {
+      fs.readFile(base + ".js", "utf8", function (err, js) {
         load_haml(eval("(" + js + ")"));
       });
     } else {
