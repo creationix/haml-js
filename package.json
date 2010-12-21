@@ -3,6 +3,9 @@
     "description": "Haml ported to server-side Javascript. This is a traditional server-side templating language.",
     "keywords": ["haml", "template"],
     "main" : "./lib/haml",
+    "bin": {
+        "haml-js": "./lib/cli.js"
+    },
     "author": "Tim Caswell <tim@creationix.com>",
     "version": "0.2.5"
 }
