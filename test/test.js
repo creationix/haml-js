@@ -17,6 +17,7 @@ fs.readdir('.', function (err, files) {
       fs.readFile(haml_file, "utf8", function (err, haml) {
         fs.readFile(base + ".html", "utf8", function (err, expected) {
           try {
+            sys.puts(haml_file + " Begun")
             var js = Haml.compile(haml);
             var js_opt = Haml.optimize(js);
             var actual = Haml(haml).call(scope.context, scope.locals);
@@ -28,6 +29,7 @@ fs.readdir('.', function (err, files) {
             if (e.message) { message += ": " + e.message; }
             sys.error(haml_file + " FAILED")
             sys.error(message);
+            sys.error(e.stack);
             sys.error("\nJS:\n\n" + js);
             sys.error("\nOptimized JS:\n\n" + js_opt);
             sys.error("\nActual:\n\n" + actual);
