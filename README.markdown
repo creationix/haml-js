@@ -157,13 +157,20 @@ Please see test/raw_complex.haml for more details and examples.
 
 ## Comments
 
-Just use the new Executable blocks with JavaScript comments.
+Comments that will **not** appear in the compiled JS function nor the output begin with `-#`
+
+    -# This is a comment
+    - # This is a syntax error because of the extraneous space between the - and #.
+
+If you want to have comments that will be in the compiled JS function but *NOT* the final HTML output:
 
     - /*
       here we can have a comment that will not be output. Since executable-JS is block-level,
       we can have as much comment as we want, and it will not be output to html */
 
-These comments **will** appear in the source of the function returned by Haml.compile, but will not appear as html comments.  If you precompile your templates and share them with the browser, then your minifier should strip out comments for you.
+If you want an HTML comment that **WILL** be in the final HTML, begin with `/`
+
+
 
 ## Code interpolation
 
