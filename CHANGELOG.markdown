@@ -1,5 +1,27 @@
 # HAML-JS Changelog
 
+- **v0.4.9**
+  Breaking Changes:
+    Made interpolation #{} escaped by default. Use !{} for unsafe interpolation.
+    
+  New Features:
+    * Optionally exclude `html_escape` function definition from every template -- provide your own escape function invocation string ("MyApp.htmlEscape") and it will be used instead, dramatically shrinking template sizes.
+    * Optionally escape all output of `=` by default.  Set the escapeHtmlByDefault configuration variable.
+    * New never-escaped `!=` recommended for when you **want** to output strings that contain html.
+    * More test coverage for interpolation and escaping
+  
+  Bugfix: "inside" whitespace was not concatenating properly in some cases.
+  
+- **v0.3.0**
+  New features: 
+    * Comments -- Haml comments, HTML comments, JavaScript Comments 
+    * Raw JS -- this lets you use if/else, switch, try/catch, et cetera 
+  in your views (use cautiously!) 
+    * Whitespace insertion -- Now, you can insert whitespace in and/or 
+  around tags using < and >.  Check the docs. 
+    * Blank templates are now valid! 
+    * More test coverage
+
 - **v0.2.5** - *2010-05-06* - NPM support
 
   Fixed to work with Node Package Manager

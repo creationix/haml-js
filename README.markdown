@@ -219,7 +219,7 @@ Sometimes safe:
 
       %span= name
 
-The behavior of `=` depends on the setting of escapeHtml configuration variable.  To make `=` safe, call Haml like this:
+The behavior of `=` depends on the setting of the `escapeHtmlByDefault` configuration variable.  To make `=` safe, call Haml like this:
 
       Haml(src, {escapeHtmlByDefault: true})
 
