@@ -196,6 +196,8 @@ Please see `test/whitespace.haml` for more examples.
 
 As of version 0.2.0 there is string interpolation throughout.  This means that the body of regular text areas can have embedded code.  This is true for attributes and the contents of plugins like javascript and markdown also.  If you notice an area that doesn't support interpolation and it should then send me a note and I'll add it.
 
+For interpolation, you may use `#{}` for unescaped interpolation or `!{}` for escaped interpolation.
+
 ## Plugins
 
 There are plugins in the parser for things like inline script tags, css blocks, and support for if statements and for loops.
@@ -261,6 +263,15 @@ This compiles to the following HTML:
     </style>
     </head><body onload="greet(&quot;I'm Pink&quot;)"> COLOR ME PINK
     </body>
+
+
+## Custom Escaper
+
+By default, Haml(src) returns a completely self-sufficient function, including a nested `html_escape` function.  However, repeating the html_escape function definition in each of your templates is going to use more size than necessary.  So, you may pass the name of a custom escaper in an optional config variable.
+
+      Haml(src, {customEscaper: "MyApp.esc"})
+
+Then, the output template function definition will call `MyApp.esc(string)` and will omit the `html_escape` function definition. Haml.html_escape exposes the default escape function.  If you are going to render your templates in the same context where you compile them (for instance, if you are only rendering them on the server side,) it might make sense to use  `Haml(src, {customEscaper: "Haml.html_escape"})`
 
 ## Get Involved
 
