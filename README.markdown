@@ -196,7 +196,7 @@ Please see `test/whitespace.haml` for more examples.
 
 As of version 0.2.0 there is string interpolation throughout.  This means that the body of regular text areas can have embedded code.  This is true for attributes and the contents of plugins like javascript and markdown also.  If you notice an area that doesn't support interpolation and it should then send me a note and I'll add it.
 
-For interpolation, you may use `#{}` for unescaped interpolation or `!{}` for escaped interpolation.
+For interpolation, you may use `#{}` for escaped interpolation or `!{}` for unsafe interpolation.
 
 ## Plugins
 
