@@ -6,7 +6,7 @@
     "main" : "./lib/haml",
     "bin": {
         "haml-js": "./lib/cli.js"
-    }
+    },
     "author": "Aaron Blohowiak <aaron.blohowiak@gmail.com>, Tim Caswell <tim@creationix.com>",
     "version": "0.4.0"
 }
