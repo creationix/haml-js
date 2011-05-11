@@ -198,6 +198,31 @@ As of version 0.2.0 there is string interpolation throughout.  This means that t
 
 For interpolation, you may use `#{}` for escaped interpolation or `!{}` for unsafe interpolation.
 
+## Html Escaping / Santizer
+
+You probably don't want to put unescaped user input right into your html.  http://xkcd.com/327/  HTML/XSS sanitization is the new "Bobby Tables."
+
+Let's assume we have a malicious username: `name = "<script>...</script>"`
+
+Always unsafe:
+      
+      %span!= name
+      
+      <span><script>...</script></span>
+
+Always safe:
+
+      %span&= name
+      <span>&lt;script&gt;...&lt;/script&gt;</span>
+
+Sometimes safe:
+
+      %span= name
+
+The behavior of `=` depends on the setting of escapeHtml configuration variable.  To make `=` safe, call Haml like this:
+
+      Haml(src, {escapeHtmlByDefault: true})
+
 ## Plugins
 
 There are plugins in the parser for things like inline script tags, css blocks, and support for if statements and for loops.

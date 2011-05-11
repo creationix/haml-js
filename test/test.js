@@ -102,3 +102,32 @@ fs.readdir('.', function (err, files) {
   
 })();
 
+
+(function(){
+  var hamlSrc = fs.readFileSync("./other/escape_by_default.haml", "utf8");
+  var expected = fs.readFileSync("./other/escape_by_default.html", "utf8");
+  var scope = {};
+  
+  sys.puts("escape_by_default" + " Begun")
+  var js = Haml.compile(hamlSrc);
+  sys.error(js);
+  
+  
+  var jsFn = Haml(hamlSrc, {escapeHtmlByDefault:true});
+  
+  this.$esc = function(){
+    return "moo"
+  };
+  
+  var actual = jsFn.call(scope.context, scope.locals); 
+  try{           
+    assert.equal(actual, expected);
+  }catch(e){
+    sys.error("\nActual["+actual.length+"]:\n\n" + actual);
+    sys.error("\nExpected["+expected.length+"]:\n\n" + expected);
+    process.exit();
+  }
+  sys.puts("escape_by_default" + " Passed")
+  
+})();
+
