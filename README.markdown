@@ -94,7 +94,7 @@ With the previous input it outputs:
 
 Notice how congruent static strings are merged into a single string literal when possible.
 
-### Haml.execute(js, context, locals) -> Executes a compiles template
+### Haml.execute(js, context, locals) -> Executes a compiled template
 
 Context is the value of `this` in the template, and locals is a hash of local variables.
 
