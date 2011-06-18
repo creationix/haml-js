@@ -294,9 +294,9 @@ This compiles to the following HTML:
 
 By default, Haml(src) returns a completely self-sufficient function, including a nested `html_escape` function.  However, repeating the html_escape function definition in each of your templates is going to use more size than necessary.  So, you may pass the name of a custom escaper in an optional config variable.
 
-      Haml(src, {customEscaper: "MyApp.esc"})
+      Haml(src, {customEscape: "MyApp.esc"})
 
-Then, the output template function definition will call `MyApp.esc(string)` and will omit the `html_escape` function definition. Haml.html_escape exposes the default escape function.  If you are going to render your templates in the same context where you compile them (for instance, if you are only rendering them on the server side,) it might make sense to use  `Haml(src, {customEscaper: "Haml.html_escape"})`
+Then, the output template function definition will call `MyApp.esc(string)` and will omit the `html_escape` function definition. Haml.html_escape exposes the default escape function.  If you are going to render your templates in the same context where you compile them (for instance, if you are only rendering them on the server side,) it might make sense to use  `Haml(src, {customEscape: "Haml.html_escape"})`
 
 ## Get Involved
 

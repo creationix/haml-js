@@ -1,6 +1,6 @@
 # HAML-JS Changelog
 
-- **v0.4.9**
+- **v0.4.0**
   Breaking Changes:
     Made interpolation #{} escaped by default. Use !{} for unsafe interpolation.
     
