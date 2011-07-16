@@ -13,9 +13,15 @@ function compare(haml_file, haml, expected, scope, options){
     var js = Haml.compile(haml);
     var js_opt = Haml.optimize(js);
     var jsFn = Haml(haml, options);
-    var actual = jsFn.call(scope.context, scope.locals);            
+    var actual = jsFn.call(scope.context, scope.locals);
+               
     assert.equal(actual, expected);
     sys.puts(haml_file + " Passed")
+    
+    actual = Haml.render(haml, {context:scope.context, locals:scope.locals})
+    
+    assert.equal(actual, expected);
+    sys.puts(haml_file + " Haml.render Passed")
     
   } catch (e) {
     var message = e.name;
@@ -109,9 +115,7 @@ fs.readdir('.', function (err, files) {
   var scope = {};
   
   sys.puts("escape_by_default" + " Begun")
-  var js = Haml.compile(hamlSrc);
-  sys.error(js);
-  
+  var js = Haml.compile(hamlSrc);  
   
   var jsFn = Haml(hamlSrc, {escapeHtmlByDefault:true});
   
