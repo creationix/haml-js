@@ -1,0 +1,31 @@
+:each user in users        
+    - var testComment = "hello " + user  // sample eol-comment
+    %div&= testComment
+    
+:each user in users
+    - var testComment = 'hello ' + user  // sample eol-comment
+    %div&= testComment
+    
+:each user in users
+    - var testComment = "hello // ok " + user
+    %div&= testComment
+    
+:each user in users
+    - var testComment = "hello // ok "  + user // sample eol-comment
+    %div&= testComment
+    
+:each user in users
+    - var testComment = 'hello // ok ' + user
+    %div&= testComment
+
+:each user in users
+    - var testComment = 'hello // ok ' + user // sample eol-comment
+    %div&= testComment
+    
+:each user in users
+    - var testComment = "hel'lo " + user  // sample eol-comment
+    %div&= testComment
+    
+:each user in users
+    - var testComment = 'hel"lo ' + user  // sample eol-comment
+    %div&= testComment
