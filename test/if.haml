@@ -1,0 +1,39 @@
+%ul
+  :each number in numbers
+    %li
+      :if number.one
+        %ul
+          :each color in number.one
+            %li
+              :if color.a
+                = color.a
+              :else if color.b
+                = color.b
+              :else if color.c
+                = color.c
+              :else
+                = color.d
+      :else if number.two
+        %ul
+          :each color in number.two
+            %li
+              :if color.e
+                = color.e
+              :else if color.f
+                = color.f
+              :else if color.g
+                = color.g
+              :else
+                = color.h
+      :else
+        %ul
+          :each color in number.three
+            %li
+              :if color.i
+                = color.i
+              :else if color.j
+                = color.j
+              :else if color.k
+                = color.k
+              :else
+                = color.l
