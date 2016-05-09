@@ -1,6 +1,6 @@
 var fs = require('fs');
 var assert = require('assert');
-var sys = require('sys');
+var sys = require('util');
 
 var Haml = require("../lib/haml");
 
