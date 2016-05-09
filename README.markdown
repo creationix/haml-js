@@ -198,7 +198,7 @@ As of version 0.2.0 there is string interpolation throughout.  This means that t
 
 For interpolation, you may use `#{}` for escaped interpolation or `!{}` for unsafe interpolation.
 
-## Html Escaping / Santizer
+## Html Escaping / Sanitizer
 
 You probably don't want to put unescaped user input right into your html.  http://xkcd.com/327/  HTML/XSS sanitization is the new "Bobby Tables."
 
