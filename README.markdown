@@ -227,12 +227,17 @@ The behavior of `=` depends on the setting of the `escapeHtmlByDefault` configur
 
 There are plugins in the parser for things like inline script tags, css blocks, and support for if statements and for loops.
 
-### `:if` statements
+### `:if/:else` statements
 
-`if` statements evaluate a condition for truthiness (as opposed to a strict comparison to `true`) and includes the content inside the block if it's truthy.
+`if` statements evaluate a condition for truthiness (as opposed to a strict comparison to `true`) and includes the content inside the block if it's truthy. An optional `else` is also supported.
 
     :if todolist.length > 20
       %p Oh my, you are a busy fellow!
+
+    :if val == selectedVal
+      %option{value: val, selected: true}= val
+    :else
+      %option{value: val}= val
 
 ### `:each` loops
 
