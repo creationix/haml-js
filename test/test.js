@@ -14,15 +14,15 @@ function compare(haml_file, haml, expected, scope, options){
     var js_opt = Haml.optimize(js);
     var jsFn = Haml(haml, options);
     var actual = jsFn.call(scope.context, scope.locals);
-               
+
     assert.equal(actual, expected);
     sys.puts(haml_file + " Passed")
-    
+
     actual = Haml.render(haml, {context:scope.context, locals:scope.locals})
-    
+
     assert.equal(actual, expected);
     sys.puts(haml_file + " Haml.render Passed")
-    
+
   } catch (e) {
     var message = e.name;
     if (e.message) { message += ": " + e.message; }
@@ -36,7 +36,7 @@ function compare(haml_file, haml, expected, scope, options){
       sys.error("\nActual["+actual.length+"]:\n\n" + actual);
       sys.error("\nExpected["+expected.length+"]:\n\n" + expected);
     }catch(e2){}
-    
+
     process.exit();
   }
 }
@@ -79,7 +79,6 @@ fs.readdir('.', function (err, files) {
   }catch(e){
     sys.error(e.stack);
     sys.error(customEscape);
-    process.exit();
   }
 })();
 
@@ -88,24 +87,23 @@ fs.readdir('.', function (err, files) {
   var hamlSrc = fs.readFileSync("./other/custom_escape.haml", "utf8");
   var expected = fs.readFileSync("./other/custom_escape.html", "utf8");
   var scope = eval("(" + fs.readFileSync("escaping.js") + ")");
-  
+
   sys.puts("custom_escape" + " Begun")
   var jsFn = Haml(hamlSrc, {customEscape:"$esc"});
-  
+
   this.$esc = function(){
     return "moo"
   };
-  
-  var actual = jsFn.call(scope.context, scope.locals); 
-  try{           
+
+  var actual = jsFn.call(scope.context, scope.locals);
+  try{
     assert.equal(actual, expected);
+    sys.puts("custom_escape" + " Passed")
   }catch(e){
     sys.error("\nActual["+actual.length+"]:\n\n" + actual);
     sys.error("\nExpected["+expected.length+"]:\n\n" + expected);
-    process.exit();
   }
-  sys.puts("custom_escape" + " Passed")
-  
+
 })();
 
 
@@ -113,25 +111,24 @@ fs.readdir('.', function (err, files) {
   var hamlSrc = fs.readFileSync("./other/escape_by_default.haml", "utf8");
   var expected = fs.readFileSync("./other/escape_by_default.html", "utf8");
   var scope = {};
-  
+
   sys.puts("escape_by_default" + " Begun")
-  var js = Haml.compile(hamlSrc);  
-  
+  var js = Haml.compile(hamlSrc);
+
   var jsFn = Haml(hamlSrc, {escapeHtmlByDefault:true});
-  
+
   this.$esc = function(){
     return "moo"
   };
-  
-  var actual = jsFn.call(scope.context, scope.locals); 
-  try{           
+
+  var actual = jsFn.call(scope.context, scope.locals);
+  try{
     assert.equal(actual, expected);
+    sys.puts("escape_by_default" + " Passed")
   }catch(e){
     sys.error("\nActual["+actual.length+"]:\n\n" + actual);
     sys.error("\nExpected["+expected.length+"]:\n\n" + expected);
-    process.exit();
   }
-  sys.puts("escape_by_default" + " Passed")
-  
+
 })();
 
