@@ -33,7 +33,12 @@ Here is the first example(with a little extra added) from the [haml][] site conv
     </div><div id="bio">Experienced software professional...
     </div></div></div></body></html>
 
-Note that this works almost the same as ruby's [haml][], but doesn't pretty print the html.  This would greatly slow down and complicate the code.  If you really want pretty printed html, then I suggest writing one using the xml parser library and process the resulting html..
+Note that this works almost the same as ruby's [haml][], but doesn't pretty print the html.  This would greatly slow down and complicate the code.  If you really want pretty printed html, then I suggest writing one using the xml parser library and process the resulting html.
+
+## Differences from Ruby HAML
+
+* `=` and `-` interpolate JavaScript code, not Ruby 
+* Multi-line attribute blocks are not supported.
 
 ## API
 
