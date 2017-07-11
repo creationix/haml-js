@@ -98,6 +98,8 @@ Notice how congruent static strings are merged into a single string literal when
 
 Context is the value of `this` in the template, and locals is a hash of local variables.
 
+If `context._err` is a function it will be called with `context._err(error, formatted_error_string)` instead of returning the default formatted error string.
+
 ### Haml.render(text, options) -> html text
 
 This is a convenience function that compiles and executes to html in one shot.  Most casual users will want to use this function exclusively.
