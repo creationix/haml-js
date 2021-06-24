@@ -223,6 +223,26 @@ The behavior of `=` depends on the setting of the `escapeHtmlByDefault` configur
 
       Haml(src, {escapeHtmlByDefault: true})
 
+## Multi Lines
+Attributes can be declared on multiple lines
+
+      %input(class="foo" 
+        name="test")
+      %input{class: "foo",
+        name: "test"}
+        
+Note the above syntax will not work with empty attributes
+
+      %input(class="foo" 
+        checked           <-- This is not working
+        name="test")
+
+You can also explcilty use the pipe operator `|` just before line break to write content on multiple lines
+
+      %input(        |
+        class="foo"  |
+        name="test"  |
+      )
 ## Plugins
 
 There are plugins in the parser for things like inline script tags, css blocks, and support for if statements and for loops.
